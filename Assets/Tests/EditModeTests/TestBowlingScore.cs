@@ -7,12 +7,26 @@ using UnityEngine.TestTools;
 
 public class TestBowlingScore
 {
-    // A Test behaves as an ordinary method
     [Test]
     public void ShouldReturnAnInteger()
     {
         BowlingTurn[] turns = { };
 
         Assert.IsTrue(BowlingScore.Calculate(turns) is int);
+    }
+
+    [Test]
+    public void ShouldThrowExceptionIfTurnHasMoreThan10PointsTotal()
+    {
+        BowlingTurn[] turns = { new BowlingTurn(4,7) };
+
+        try
+        {
+            BowlingScore.Calculate(turns);
+            Assert.Fail();
+        }
+        catch (ArgumentOutOfRangeException) {
+            Assert.Pass();
+        }
     }
 }
