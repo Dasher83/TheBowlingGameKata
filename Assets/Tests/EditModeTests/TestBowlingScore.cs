@@ -1,16 +1,24 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
+
 
 public class TestBowlingScore
 {
     [Test]
     public void ShouldReturnAnInteger()
     {
-        BowlingTurn[] turns = { };
+        BowlingTurn[] turns = {
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6)
+        };
 
         Assert.IsTrue(BowlingScore.Calculate(turns) is int);
     }
@@ -18,15 +26,42 @@ public class TestBowlingScore
     [Test]
     public void ShouldThrowExceptionIfTurnHasMoreThan10PointsTotal()
     {
-        BowlingTurn[] turns = { new BowlingTurn(4,7) };
+        BowlingTurn[] turns = {
+            new BowlingTurn(4, 7),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6)
+        };
 
         try
         {
             BowlingScore.Calculate(turns);
             Assert.Fail();
         }
-        catch (ArgumentOutOfRangeException) {
-            Assert.Pass();
+        catch (ArgumentOutOfRangeException exception) {
+            Assert.AreEqual("A turn total score is over 10", exception.Message);
+        }
+    }
+
+    [Test]
+    public void ShouldThrowExceptionIfNotExactly10Turns()
+    {
+        BowlingTurn[] turns = { new BowlingTurn(4, 7) };
+
+        try
+        {
+            BowlingScore.Calculate(turns);
+            Assert.Fail();
+        }
+        catch (ArgumentOutOfRangeException exception)
+        {
+            Assert.AreEqual("turns length is not 10", exception.Message);
         }
     }
 }
