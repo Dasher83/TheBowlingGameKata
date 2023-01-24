@@ -1,4 +1,3 @@
-using GluonGui.Dialog;
 using System;
 using System.Linq;
 
@@ -14,9 +13,9 @@ public static class BowlingScore
             throw new ArgumentOutOfRangeException(message: $"turns length is not {TurnsLength}", innerException: null);
         }
 
-        if(turns.Any(turn => turn.Shot1 + turn.Shot2 > 10))
+        if(turns.Where((_, index) => index < TurnsLength - 1).Any(turn => turn.Shot1 + turn.Shot2 > 10))
         {
-            throw new ArgumentOutOfRangeException(message: $"A turn total base score is over {TurnsLength}", innerException: null);
+            throw new ArgumentOutOfRangeException(message: $"A regular turn total base score is over {TurnsLength}", innerException: null);
         }
 
         BowlingTurn lastRegularTurn = turns[TurnsLength - 2];
@@ -37,7 +36,7 @@ public static class BowlingScore
             if (IsSpare(turns[i])) result += turns[i + 1].Shot1;
 
             if (IsStrike(turns[i])) {
-                if (IsStrike(turns[i + 1]))
+                if (IsStrike(turns[i + 1]) && i < turns.Length - 2)
                 {
                     result += turns[i + 1].Shot1 + turns[i + 2].Shot1;
                 }

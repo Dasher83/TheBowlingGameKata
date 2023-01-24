@@ -47,7 +47,7 @@ public class TestBowlingScore
             Assert.Fail();
         }
         catch (ArgumentOutOfRangeException exception) {
-            Assert.AreEqual("A turn total base score is over 11", exception.Message);
+            Assert.AreEqual("A regular turn total base score is over 11", exception.Message);
         }
     }
 
@@ -201,6 +201,28 @@ public class TestBowlingScore
         };
 
         int expectedResult = 53;
+
+        Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
+    }
+
+    [Test]
+    public void ShouldApplyStrikeBounsForLastRegularTurn()
+    {
+        BowlingTurn[] turns = {
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 10),
+        };
+
+        int expectedResult = 30;
 
         Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
     }
