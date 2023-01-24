@@ -17,7 +17,8 @@ public class TestBowlingScore
             new BowlingTurn(4, 6),
             new BowlingTurn(4, 6),
             new BowlingTurn(4, 6),
-            new BowlingTurn(4, 5)
+            new BowlingTurn(4, 5),
+            new BowlingTurn(0, 0),
         };
 
         Assert.IsTrue(BowlingScore.Calculate(turns) is int);
@@ -36,7 +37,8 @@ public class TestBowlingScore
             new BowlingTurn(4, 6),
             new BowlingTurn(4, 6),
             new BowlingTurn(4, 6),
-            new BowlingTurn(4, 6)
+            new BowlingTurn(4, 6),
+            new BowlingTurn(4, 6),
         };
 
         try
@@ -45,12 +47,12 @@ public class TestBowlingScore
             Assert.Fail();
         }
         catch (ArgumentOutOfRangeException exception) {
-            Assert.AreEqual("A turn total score is over 10", exception.Message);
+            Assert.AreEqual("A turn total base score is over 11", exception.Message);
         }
     }
 
     [Test]
-    public void ShouldThrowExceptionIfNotExactly10Turns()
+    public void ShouldThrowExceptionIfNotExactly11Turns()
     {
         BowlingTurn[] turns = { new BowlingTurn(4, 7) };
 
@@ -61,7 +63,7 @@ public class TestBowlingScore
         }
         catch (ArgumentOutOfRangeException exception)
         {
-            Assert.AreEqual("turns length is not 10", exception.Message);
+            Assert.AreEqual("turns length is not 11", exception.Message);
         }
     }
     
@@ -78,7 +80,8 @@ public class TestBowlingScore
             new BowlingTurn(0, 0),
             new BowlingTurn(0, 0),
             new BowlingTurn(0, 0),
-            new BowlingTurn(0, 0)
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
         };
 
         int expectedResult = 7;
@@ -87,7 +90,7 @@ public class TestBowlingScore
     }
 
     [Test]
-    public void ShouldApplySpareScoreBonus()
+    public void ShouldApplySpareScoreBonusWithoutBonusShot()
     {
         BowlingTurn[] turns = {
             new BowlingTurn(8, 2),
@@ -99,10 +102,61 @@ public class TestBowlingScore
             new BowlingTurn(0, 0),
             new BowlingTurn(0, 0),
             new BowlingTurn(0, 0),
-            new BowlingTurn(0, 0)
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
         };
 
         int expectedResult = 23;
+
+        Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
+    }
+
+    [Test]
+    public void ShouldNotHaveNonZeroBonusTurnIfNotSpareNorStrike()
+    {
+        BowlingTurn[] turns = {
+            new BowlingTurn(8, 2),
+            new BowlingTurn(4, 5),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(8, 0),
+        };
+
+        try
+        {
+            BowlingScore.Calculate(turns);
+            Assert.Fail();
+        }
+        catch (ArgumentException exception)
+        {
+            Assert.AreEqual("Invalid non empty bonus turn", exception.Message);
+        }
+    }
+
+    [Test]
+    public void ShouldApplySpareScoreBonusWithBonusShot()
+    {
+        BowlingTurn[] turns = {
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(5, 5),
+            new BowlingTurn(10, 0),
+        };
+
+        int expectedResult = 20;
 
         Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
     }

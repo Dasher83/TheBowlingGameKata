@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-
 public class BowlingTurn
 {
     private int shot1, shot2;
