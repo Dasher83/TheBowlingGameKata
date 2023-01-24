@@ -182,4 +182,26 @@ public class TestBowlingScore
 
         Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
     }
+
+    [Test]
+    public void ShouldApplyStrikeBounsForConsecutiveStrikes()
+    {
+        BowlingTurn[] turns = {
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(5, 4),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+        };
+
+        int expectedResult = 53;
+
+        Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
+    }
 }

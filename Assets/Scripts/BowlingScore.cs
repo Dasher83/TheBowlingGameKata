@@ -35,8 +35,17 @@ public static class BowlingScore
             if(i != TurnsLength - 1) result += turnBaseScore;
 
             if (IsSpare(turns[i])) result += turns[i + 1].Shot1;
-            
-            if (IsStrike(turns[i])) result += turns[i + 1].Shot1 + turns[i + 1].Shot2;
+
+            if (IsStrike(turns[i])) {
+                if (IsStrike(turns[i + 1]))
+                {
+                    result += turns[i + 1].Shot1 + turns[i + 2].Shot1;
+                }
+                else
+                {
+                    result += turns[i + 1].Shot1 + turns[i + 1].Shot2; 
+                }
+            }
         }
 
         return result;
