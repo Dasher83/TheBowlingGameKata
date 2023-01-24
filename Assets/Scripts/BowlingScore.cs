@@ -18,25 +18,27 @@ public static class BowlingScore
             throw new ArgumentOutOfRangeException(message: $"A regular turn total base score is over {TurnsLength}", innerException: null);
         }
 
-        BowlingTurn lastRegularTurn = turns[TurnsLength - 2];
+        int bonusTurnIndex = TurnsLength - 1;
+        int lastRegularTurnIndex = TurnsLength - 2;
+        BowlingTurn lastRegularTurn = turns[lastRegularTurnIndex];
 
-        if (!IsSpare(lastRegularTurn) && !IsStrike(lastRegularTurn) && !IsTurnEmpty(turns[TurnsLength - 1]))
+        if (!IsSpare(lastRegularTurn) && !IsStrike(lastRegularTurn) && !IsTurnEmpty(turns[bonusTurnIndex]))
         {
             throw new ArgumentException(message: "Invalid non empty bonus turn", innerException: null);
         }
 
         int result = 0, turnBaseScore;
 
-        for (int i = 0; i < turns.Length - 1; i++)
+        for (int i = 0; i < bonusTurnIndex; i++)
         {
             turnBaseScore = turns[i].Shot1 + turns[i].Shot2;
 
-            if(i != TurnsLength - 1) result += turnBaseScore;
+            if(i != bonusTurnIndex) result += turnBaseScore;
 
             if (IsSpare(turns[i])) result += turns[i + 1].Shot1;
 
             if (IsStrike(turns[i])) {
-                if (IsStrike(turns[i + 1]) && i < turns.Length - 2)
+                if (i < lastRegularTurnIndex && IsStrike(turns[i + 1]))
                 {
                     result += turns[i + 1].Shot1 + turns[i + 2].Shot1;
                 }
