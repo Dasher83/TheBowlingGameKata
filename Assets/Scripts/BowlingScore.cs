@@ -19,9 +19,14 @@ public static class BowlingScore
 
         int result = 0;
 
-        foreach (BowlingTurn turn in turns)
+        
+        for(int i = 0; i < turns.Length; i++)
         {
-            result += turn.Shot1 + turn.Shot2;
+            result += turns[i].Shot1 + turns[i].Shot2;
+            if(result == 10)
+            {
+                result += turns[i + 1].Shot1;
+            }
         }
 
         return result;

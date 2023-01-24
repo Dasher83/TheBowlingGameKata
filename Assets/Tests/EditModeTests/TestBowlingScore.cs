@@ -85,4 +85,25 @@ public class TestBowlingScore
         
         Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
     }
+
+    [Test]
+    public void ShouldApplySpareScoreBonus()
+    {
+        BowlingTurn[] turns = {
+            new BowlingTurn(8, 2),
+            new BowlingTurn(4, 5),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0)
+        };
+
+        int expectedResult = 23;
+
+        Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
+    }
 }
