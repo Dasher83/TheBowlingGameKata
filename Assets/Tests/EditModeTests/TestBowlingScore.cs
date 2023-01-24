@@ -64,4 +64,25 @@ public class TestBowlingScore
             Assert.AreEqual("turns length is not 10", exception.Message);
         }
     }
+    
+    [Test]
+    public void ShouldPartiallyReturnTheSumOfBothShotsIfNotStrikeNorSpare()
+    {
+        BowlingTurn[] turns = {
+            new BowlingTurn(2, 5),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0)
+        };
+
+        int expectedResult = 7;
+        
+        Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
+    }
 }

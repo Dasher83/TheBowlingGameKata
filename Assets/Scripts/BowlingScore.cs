@@ -17,6 +17,13 @@ public static class BowlingScore
             throw new ArgumentOutOfRangeException(message: "A turn total score is over 10", innerException: null);
         }
 
-        return -1;
+        int result = 0;
+
+        foreach (BowlingTurn turn in turns)
+        {
+            result += turn.Shot1 + turn.Shot2;
+        }
+
+        return result;
     }
 }
