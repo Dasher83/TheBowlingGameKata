@@ -28,13 +28,15 @@ public static class BowlingScore
 
         int result = 0, turnBaseScore;
 
-        for (int i = 0; i < turns.Length; i++)
+        for (int i = 0; i < turns.Length - 1; i++)
         {
             turnBaseScore = turns[i].Shot1 + turns[i].Shot2;
 
             if(i != TurnsLength - 1) result += turnBaseScore;
 
             if (IsSpare(turns[i])) result += turns[i + 1].Shot1;
+            
+            if (IsStrike(turns[i])) result += turns[i + 1].Shot1 + turns[i + 1].Shot2;
         }
 
         return result;

@@ -160,4 +160,26 @@ public class TestBowlingScore
 
         Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
     }
+    
+    [Test]
+    public void ShouldApplyStrikeScoreBonusWithoutBonusShot()
+    {
+        BowlingTurn[] turns = {
+            new BowlingTurn(10, 0),
+            new BowlingTurn(4, 5),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+            new BowlingTurn(0, 0),
+        };
+
+        int expectedResult = 28;
+
+        Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
+    }
 }
