@@ -17,7 +17,7 @@ public class TestBowlingScore
             new BowlingTurn(4, 6),
             new BowlingTurn(4, 6),
             new BowlingTurn(4, 6),
-            new BowlingTurn(4, 6)
+            new BowlingTurn(4, 5)
         };
 
         Assert.IsTrue(BowlingScore.Calculate(turns) is int);

@@ -1,3 +1,4 @@
+using GluonGui.Dialog;
 using System;
 using System.Linq;
 
@@ -17,18 +18,21 @@ public static class BowlingScore
             throw new ArgumentOutOfRangeException(message: "A turn total score is over 10", innerException: null);
         }
 
-        int result = 0;
+        int result = 0, turnBaseScore;
 
-        
-        for(int i = 0; i < turns.Length; i++)
+        for (int i = 0; i < turns.Length; i++)
         {
-            result += turns[i].Shot1 + turns[i].Shot2;
-            if(result == 10)
-            {
-                result += turns[i + 1].Shot1;
-            }
+            turnBaseScore = turns[i].Shot1 + turns[i].Shot2;
+            result += turnBaseScore;
+
+            if(IsSpare(turnBaseScore)) result += turns[i + 1].Shot1;
         }
 
         return result;
+    }
+
+    private static bool IsSpare(int turnBaseScore)
+    {
+        return turnBaseScore == 10;
     }
 }
