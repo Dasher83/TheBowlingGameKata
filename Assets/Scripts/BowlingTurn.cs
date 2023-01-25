@@ -9,4 +9,9 @@ public class BowlingTurn
         this.shot1 = shot1;
         this.shot2 = shot2;
     }
+
+    public override string ToString()
+    {
+        return $"{{{shot1},{shot2}}}";
+    }
 }
