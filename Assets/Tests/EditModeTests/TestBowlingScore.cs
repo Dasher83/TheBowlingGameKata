@@ -226,4 +226,48 @@ public class TestBowlingScore
 
         Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
     }
+    
+    [Test]
+    public void ShouldYield300PointsAsIsAPerfectGame()
+    {
+        BowlingTurn[] turns = {
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 0),
+            new BowlingTurn(10, 10),
+        };
+
+        int expectedResult = 300;
+
+        Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
+    }
+    
+    [Test]
+    public void ShouldFollowBaseHappyPath()
+    {
+        BowlingTurn[] turns = {
+            new BowlingTurn(10, 0), // TurnScore = 15
+            new BowlingTurn(5, 0), // TurnScore = 5
+            new BowlingTurn(2, 8), // TurnScore = 16
+            new BowlingTurn(6, 4), // TurnScore = 20
+            new BowlingTurn(10, 0), // TurnScore = 21
+            new BowlingTurn(10, 0), // TurnScore = 11
+            new BowlingTurn(1, 0), // TurnScore = 1
+            new BowlingTurn(0, 0), //  TurnScore = 0
+            new BowlingTurn(9, 0), // TurnScore = 9
+            new BowlingTurn(7, 3), // TurnScore = 20
+            new BowlingTurn(10, 0), // This is a bonus turn :D
+        };
+
+        int expectedResult = 118;
+
+        Assert.AreEqual(expectedResult, BowlingScore.Calculate(turns));
+    }
 }
