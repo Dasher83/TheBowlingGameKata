@@ -1,24 +1,17 @@
 using System;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 
 public class MainForm : MonoBehaviour
 {
     [SerializeField]
-    private GameObject shot1InputText;
+    private TMP_InputField shot1InputField;
 
     [SerializeField]
-    private GameObject shot2InputText;
+    private TMP_InputField shot2InputField;
 
-    int shot1Score, shot2Score, turnScore;
-
-    private void Start()
-    {
-        shot1InputText.GetComponent<TMP_InputField>().onSubmit.AddListener((string input) => { shot1Score = TryParseOrZero(input); });
-        shot2InputText.GetComponent<TMP_InputField>().onSubmit.AddListener((string input) => { shot2Score = TryParseOrZero(input); });
-    }
+    private int turnScore;
 
     private int TryParseOrZero(string input)
     {
@@ -29,7 +22,7 @@ public class MainForm : MonoBehaviour
 
     public void Submit()
     {
-        turnScore = shot1Score + shot2Score;
+        turnScore = TryParseOrZero(shot1InputField.text) + TryParseOrZero(shot2InputField.text);
         Debug.Log($"Your turn score is {turnScore}");
     }    
 }
