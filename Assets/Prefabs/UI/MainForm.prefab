@@ -885,6 +885,7 @@ MonoBehaviour:
   shot2InputField: {fileID: 6042655996019423420}
   formTitle: {fileID: 6042655996287557421}
   _submitButton: {fileID: 6042655994690357620}
+  _shot2Container: {fileID: 6042655996102061201}
 --- !u!1 &6042655995878495593
 GameObject:
   m_ObjectHideFlags: 0

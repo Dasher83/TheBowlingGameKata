@@ -18,6 +18,9 @@ public class MainForm : MonoBehaviour
     [SerializeField] 
     private GameObject _submitButton;
 
+    [SerializeField]
+    private GameObject _shot2Container;
+
     private BowlingTurn[] _turns = new BowlingTurn [11];
 
     private int bonusTurnIndex, lastRegularTurnIndex;
@@ -60,6 +63,10 @@ public class MainForm : MonoBehaviour
             }
             else
             {
+                if (BowlingScore.IsSpare(_turns[lastRegularTurnIndex]))
+                {
+                    _shot2Container.SetActive(false);
+                }
                 formTitle.text = "Bonus turn";
                 _turnIndex++;
             }
