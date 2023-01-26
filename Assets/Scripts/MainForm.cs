@@ -21,17 +21,20 @@ public class MainForm : MonoBehaviour
     [SerializeField]
     private GameObject _shot2Container;
 
+    [SerializeField]
+    private TotalScoreComponent _totalScoreComponent;
+
     private BowlingTurn[] _turns = new BowlingTurn [11];
 
-    private int bonusTurnIndex, lastRegularTurnIndex;
+    private int _bonusTurnIndex, _lastRegularTurnIndex;
 
 
     private int _turnIndex = 0;
 
     private void Start()
     {
-        bonusTurnIndex = _turns.Length - 1;
-        lastRegularTurnIndex = _turns.Length - 2;
+        _bonusTurnIndex = _turns.Length - 1;
+        _lastRegularTurnIndex = _turns.Length - 2;
     }
 
     private int TryParseOrZero(string input)
@@ -55,15 +58,16 @@ public class MainForm : MonoBehaviour
 
         
 
-        if (_turnIndex == lastRegularTurnIndex)
+        if (_turnIndex == _lastRegularTurnIndex)
         {
-            if (!BowlingScore.IsSpare(_turns[lastRegularTurnIndex]) && !BowlingScore.IsStrike(_turns[lastRegularTurnIndex]))
+            if (!BowlingScore.IsSpare(_turns[_lastRegularTurnIndex]) && !BowlingScore.IsStrike(_turns[_lastRegularTurnIndex]))
             {
                 _submitButton.SetActive(false);
+                _turns[_bonusTurnIndex] = new BowlingTurn(0, 0);
             }
             else
             {
-                if (BowlingScore.IsSpare(_turns[lastRegularTurnIndex]))
+                if (BowlingScore.IsSpare(_turns[_lastRegularTurnIndex]))
                 {
                     _shot2Container.SetActive(false);
                 }
@@ -71,7 +75,7 @@ public class MainForm : MonoBehaviour
                 _turnIndex++;
             }
         }
-        else if (_turnIndex == bonusTurnIndex)
+        else if (_turnIndex == _bonusTurnIndex)
         {
             _submitButton.SetActive(false);
         }
@@ -81,7 +85,12 @@ public class MainForm : MonoBehaviour
             formTitle.text = "Turn " + (_turnIndex + 1);
         }
         
-        
         ClearFields();
+        if (!_submitButton.activeSelf)
+        {
+            _totalScoreComponent.Score = BowlingScore.Calculate(_turns);
+            _totalScoreComponent.gameObject.SetActive(true);
+            gameObject.SetActive(false);
+        }
     }    
 }
