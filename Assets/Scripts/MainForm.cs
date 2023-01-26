@@ -16,11 +16,20 @@ public class MainForm : MonoBehaviour
     private TMP_Text formTitle;
 
     [SerializeField] 
-    private GameObject _submitButton; 
+    private GameObject _submitButton;
 
-    private BowlingTurn[] _turns = new BowlingTurn [10];
+    private BowlingTurn[] _turns = new BowlingTurn [11];
+
+    private int bonusTurnIndex, lastRegularTurnIndex;
+
 
     private int _turnIndex = 0;
+
+    private void Start()
+    {
+        bonusTurnIndex = _turns.Length - 1;
+        lastRegularTurnIndex = _turns.Length - 2;
+    }
 
     private int TryParseOrZero(string input)
     {
@@ -41,7 +50,21 @@ public class MainForm : MonoBehaviour
         
         Debug.Log(String.Join(" ", _turns.ToList()));
 
-        if (_turnIndex == _turns.Length - 1)
+        
+
+        if (_turnIndex == lastRegularTurnIndex)
+        {
+            if (!BowlingScore.IsSpare(_turns[lastRegularTurnIndex]) && !BowlingScore.IsStrike(_turns[lastRegularTurnIndex]))
+            {
+                _submitButton.SetActive(false);
+            }
+            else
+            {
+                formTitle.text = "Bonus turn";
+                _turnIndex++;
+            }
+        }
+        else if (_turnIndex == bonusTurnIndex)
         {
             _submitButton.SetActive(false);
         }
@@ -50,6 +73,7 @@ public class MainForm : MonoBehaviour
             _turnIndex++;
             formTitle.text = "Turn " + (_turnIndex + 1);
         }
+        
         
         ClearFields();
     }    

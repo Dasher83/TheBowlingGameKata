@@ -52,12 +52,12 @@ public static class BowlingScore
         return result;
     }
 
-    private static bool IsSpare(BowlingTurn turn)
+    public static bool IsSpare(BowlingTurn turn)
     {
         return turn.Shot1 != TotalPins && turn.Shot1 + turn.Shot2 == TotalPins;
     }
 
-    private static bool IsStrike(BowlingTurn turn)
+    public static bool IsStrike(BowlingTurn turn)
     {
         return turn.Shot1 == TotalPins;
     }
