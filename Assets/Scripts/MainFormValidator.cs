@@ -56,13 +56,13 @@ public class MainFormValidator : MonoBehaviour
 
         _errorLabelShot1.text = "";
 
-        if (!(_shot2 >= 0))
+        if (_shot2 < 0)
         {
             _submitButton.interactable = false;
             return;
         }
         
-        if (!(_shot1 + _shot2 <= 10))
+        if (_shot1 + _shot2 > 10)
         {
             _errorLabelShot1.text = "The sum of both shots must be 10 or less.";
             _submitButton.interactable = false;
@@ -72,13 +72,48 @@ public class MainFormValidator : MonoBehaviour
         _submitButton.interactable = true;
     }
 
+    public void ValidateRegularShot2 ()
+    {
+        bool isValid = ValidateInput(_shot2Input.text, out _shot2);
+
+        if (!isValid)
+        {
+            _errorLabelShot2.text = "The input must be an integer between 10 and 0.";
+            _submitButton.interactable = false;
+            return;
+        }
+
+        _errorLabelShot2.text = "";
+
+        if (_shot1 < 0)
+        {
+            _submitButton.interactable = false;
+            return;
+        }
+
+        if (_shot1 + _shot2 > 10)
+        {
+            _errorLabelShot2.text = "The sum of both shots must be 10 or less.";
+            _submitButton.interactable = false;
+            return;
+        }
+
+        _submitButton.interactable = true;
+    }
+
     public void ValidateBonusShot1()
     {
-        bool isValid = ValidateInput(_shot1Input.text, out _);
+        bool isValid = ValidateInput(_shot1Input.text, out _shot1);
 
         if (!isValid)
         {
             _errorLabelShot1.text = "The input must be an integer between 10 and 0.";
+            _submitButton.interactable = false;
+            return;
+        }
+
+        if (_shot2 < 0)
+        {
             _submitButton.interactable = false;
             return;
         }
@@ -89,23 +124,8 @@ public class MainFormValidator : MonoBehaviour
 
     public void ValidateBonusShot2()
     {
-        bool isValid = ValidateInput(_shot2Input.text, out _);
-
-        if (!isValid)
-        {
-            _errorLabelShot2.text = "The input must be an integer between 10 and 0.";
-            _submitButton.interactable = false;
-            return;
-        }
-
-        _errorLabelShot2.text = "";
-        _submitButton.interactable = true;
-    }
-
-    public void ValidateRegularShot2 ()
-    {
         bool isValid = ValidateInput(_shot2Input.text, out _shot2);
-        
+
         if (!isValid)
         {
             _errorLabelShot2.text = "The input must be an integer between 10 and 0.";
@@ -113,21 +133,13 @@ public class MainFormValidator : MonoBehaviour
             return;
         }
 
-        _errorLabelShot2.text = "";
+        if (_shot1 < 0)
+        {
+            _submitButton.interactable = false;
+            return;
+        }
 
-        if (!(_shot1 >= 0))
-        {
-            _submitButton.interactable = false;
-            return;
-        }
-        
-        if (!(_shot1 + _shot2 <= 10))
-        {
-            _errorLabelShot2.text = "The sum of both shots must be 10 or less.";
-            _submitButton.interactable = false;
-            return;
-        }
-        
+        _errorLabelShot2.text = "";
         _submitButton.interactable = true;
     }
 
