@@ -21,6 +21,10 @@ public class MainFormValidator : MonoBehaviour
     private int _shot1 = -1;
     
     private int _shot2 = -1;
+
+    private const float TimeBetweenValidations = 0.2f;
+
+    private float validationTimer = TimeBetweenValidations; 
     private bool ValidateInput(string inputValue, out int result)
     {
         bool isParsed = Int32.TryParse(inputValue, out int parsedResult);
@@ -45,6 +49,8 @@ public class MainFormValidator : MonoBehaviour
             return;
         }
 
+        _errorLabelShot1.text = "";
+
         if (!(_shot2 >= 0))
         {
             _submitButton.interactable = false;
@@ -58,8 +64,6 @@ public class MainFormValidator : MonoBehaviour
             return;
         }
         
-        
-        _errorLabelShot1.text = "";
         _submitButton.interactable = true;
     }
     
@@ -74,6 +78,8 @@ public class MainFormValidator : MonoBehaviour
             return;
         }
 
+        _errorLabelShot2.text = "";
+
         if (!(_shot1 >= 0))
         {
             _submitButton.interactable = false;
@@ -87,9 +93,23 @@ public class MainFormValidator : MonoBehaviour
             return;
         }
         
-        _errorLabelShot2.text = "";
         _submitButton.interactable = true;
     }
-    
-    
+
+    public void CleanTurn()
+    {
+        _shot1 = -1; 
+        _shot2 = -1;
+    }
+
+    private void Update()
+    {
+        validationTimer -= Time.deltaTime;
+
+        if (validationTimer > 0) return;
+        if (!string.IsNullOrEmpty(_shot1Input.text)) ValidateShot1();
+        if (!string.IsNullOrEmpty(_shot2Input.text)) ValidateShot2();
+
+        validationTimer = TimeBetweenValidations;
+    }
 }

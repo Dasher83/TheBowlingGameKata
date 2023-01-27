@@ -25,6 +25,9 @@ public class MainForm : MonoBehaviour
     [SerializeField]
     private TotalScoreComponent _totalScoreComponent;
 
+    [SerializeField]
+    private MainFormValidator _formValidator;
+
     private BowlingTurn[] _turns = new BowlingTurn [11];
 
     private int _bonusTurnIndex, _lastRegularTurnIndex;
@@ -88,6 +91,8 @@ public class MainForm : MonoBehaviour
         }
         
         ClearFields();
+        _formValidator.CleanTurn();
+
         if (!_submitButton.activeSelf)
         {
             _totalScoreComponent.Score = BowlingScore.Calculate(_turns);

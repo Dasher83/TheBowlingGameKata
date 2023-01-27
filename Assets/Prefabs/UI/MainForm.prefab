@@ -1040,19 +1040,7 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5937732807287901392}
-        m_TargetAssemblyTypeName: MainFormValidator, Scripts
-        m_MethodName: ValidateShot1
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1170,6 +1158,7 @@ MonoBehaviour:
   _submitButton: {fileID: 6042655994690357620}
   _shot2Container: {fileID: 6042655996102061201}
   _totalScoreComponent: {fileID: 0}
+  _formValidator: {fileID: 5937732807287901392}
 --- !u!114 &5937732807287901392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1614,19 +1603,7 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5937732807287901392}
-        m_TargetAssemblyTypeName: MainFormValidator, Scripts
-        m_MethodName: ValidateShot2
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
