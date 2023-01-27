@@ -62,7 +62,6 @@ public class MainFormValidator : MonoBehaviour
         if (!_shot2IsValid)
         {
             _errorLabelShot2.text = "The input must be an integer between 10 and 0.";
-            _submitButton.interactable = false;
             return;
         }
         _errorLabelShot2.text = "";
@@ -91,7 +90,6 @@ public class MainFormValidator : MonoBehaviour
         if (!_shot2IsValid)
         {
             _errorLabelShot2.text = "The input must be an integer between 10 and 0.";
-            _submitButton.interactable = false;
             return;
         }
 
