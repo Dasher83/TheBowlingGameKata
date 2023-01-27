@@ -39,6 +39,7 @@ public class MainForm : MonoBehaviour
     {
         _bonusTurnIndex = _turns.Length - 1;
         _lastRegularTurnIndex = _turns.Length - 2;
+        _formValidator.IsRegularTurn = true; 
     }
 
     private int TryParseOrZero(string input)
@@ -77,6 +78,7 @@ public class MainForm : MonoBehaviour
                     _shot2Container.SetActive(false);
                 }
                 formTitle.text = "Bonus turn";
+                _formValidator.IsRegularTurn = false;
                 _turnIndex++;
             }
         }

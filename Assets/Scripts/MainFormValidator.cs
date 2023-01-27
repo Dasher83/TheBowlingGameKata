@@ -25,6 +25,11 @@ public class MainFormValidator : MonoBehaviour
     private const float TimeBetweenValidations = 0.2f;
 
     private float validationTimer = TimeBetweenValidations; 
+
+    private bool _isRegularTurn = true;
+
+    public bool IsRegularTurn { set { _isRegularTurn = value; } }
+
     private bool ValidateInput(string inputValue, out int result)
     {
         bool isParsed = Int32.TryParse(inputValue, out int parsedResult);
@@ -38,7 +43,7 @@ public class MainFormValidator : MonoBehaviour
         return true;
     }
 
-    public void ValidateShot1 ()
+    public void ValidateRegularShot1 ()
     {
         bool isValid = ValidateInput(_shot1Input.text, out _shot1);
 
@@ -66,8 +71,38 @@ public class MainFormValidator : MonoBehaviour
         
         _submitButton.interactable = true;
     }
-    
-    public void ValidateShot2 ()
+
+    public void ValidateBonusShot1()
+    {
+        bool isValid = ValidateInput(_shot1Input.text, out _);
+
+        if (!isValid)
+        {
+            _errorLabelShot1.text = "The input must be an integer between 10 and 0.";
+            _submitButton.interactable = false;
+            return;
+        }
+
+        _errorLabelShot1.text = "";
+        _submitButton.interactable = true;
+    }
+
+    public void ValidateBonusShot2()
+    {
+        bool isValid = ValidateInput(_shot2Input.text, out _);
+
+        if (!isValid)
+        {
+            _errorLabelShot2.text = "The input must be an integer between 10 and 0.";
+            _submitButton.interactable = false;
+            return;
+        }
+
+        _errorLabelShot2.text = "";
+        _submitButton.interactable = true;
+    }
+
+    public void ValidateRegularShot2 ()
     {
         bool isValid = ValidateInput(_shot2Input.text, out _shot2);
         
@@ -107,8 +142,28 @@ public class MainFormValidator : MonoBehaviour
         validationTimer -= Time.deltaTime;
 
         if (validationTimer > 0) return;
-        if (!string.IsNullOrEmpty(_shot1Input.text)) ValidateShot1();
-        if (!string.IsNullOrEmpty(_shot2Input.text)) ValidateShot2();
+        if (!string.IsNullOrEmpty(_shot1Input.text))
+        {
+            if(_isRegularTurn)
+            {
+                ValidateRegularShot1();
+            }
+            else
+            {
+                ValidateBonusShot1();
+            }
+        }
+        if (!string.IsNullOrEmpty(_shot2Input.text))
+        {
+            if (_isRegularTurn)
+            {
+                ValidateRegularShot2();
+            }
+            else
+            {
+                ValidateBonusShot2();
+            }
+        }
 
         validationTimer = TimeBetweenValidations;
     }
