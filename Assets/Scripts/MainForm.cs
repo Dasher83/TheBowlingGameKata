@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 
 public class MainForm : MonoBehaviour
@@ -48,6 +49,7 @@ public class MainForm : MonoBehaviour
         shot2InputField.text = "";
         
         shot1InputField.Select();
+        _submitButton.GetComponent<Button>().interactable = false;
     }
 
     public void Submit()
